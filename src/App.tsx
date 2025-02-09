@@ -1,0 +1,9 @@
+import AppRouter from "./navigation/router";
+
+function App() {
+  return (
+    <AppRouter />
+  )
+}
+
+export default App

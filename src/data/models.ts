@@ -8,7 +8,7 @@ export type User = {
 export type Post = {
   id: number;
   title: string;
-  subtitle: string;
+  body: string;
   authorId: number;
   createdAt: Date;
   updatedAt: Date;

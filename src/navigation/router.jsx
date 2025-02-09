@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import routeNames from "./routenames";
 import UsersPage from "../components/UsersPage";
+import UsersPostsPage from "@/components/UsersPostsPage";
 
 export default function AppRouter() {
   const router = createBrowserRouter([
@@ -11,6 +12,10 @@ export default function AppRouter() {
     {
       path: routeNames.users,
       element: <UsersPage />
+    },
+    {
+      path: routeNames.posts,
+      element: <UsersPostsPage />
     }
   ]);
 

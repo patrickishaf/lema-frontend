@@ -1,9 +1,9 @@
+import delBtn from "../assets/delete.svg";
 import prevBtn from "../assets/prevbtn.svg";
-import nextBtn from "../assets/nextbtn.svg";
 
 const vectors = {
+  delBtn,
   prevBtn,
-  nextBtn,
 };
 
 export default function useVector() {

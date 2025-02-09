@@ -11,10 +11,13 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
+import { useNavigate } from "react-router-dom";
+import routeNames from "@/navigation/routenames";
 
 export default function UsersTable() {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const openRoute = useNavigate();
 
   useEffect(() => {
     setUsers(getUsers());
@@ -35,7 +38,9 @@ export default function UsersTable() {
         </div>
         {
           users.map(({ fullName, emailAddress, address }) => (
-            <div className="detail-row flex items-center border-b">
+            <div className="detail-row flex items-center border-b" onClick={() => {
+              openRoute(routeNames.posts);
+            }}>
               <p className="detail-cell user-name one font-medium text-sm">{fullName}</p>
               <p className="detail-cell user-email two text-sm">{emailAddress}</p>
               <p className="detail-cell user-address three text-sm">{address}</p>

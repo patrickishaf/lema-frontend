@@ -1,7 +1,9 @@
 import "../styles/UsersPage.css";
 import UsersTable from "./UsersTable";
+import { useQuery } from "@tanstack/react-query";
 
 export default function UsersPage() {
+  const query = useQuery();
   return (
     <div className="users-page w-screen h-screen pt-32">
       <section className="w-full h-full">

@@ -52,16 +52,16 @@ export default function UsersTable() {
         <Pagination>
           <PaginationContent>
             <PaginationItem>
-              <PaginationPrevious href="#" />
+              <PaginationPrevious href="#" className="custom-pale-txt" />
             </PaginationItem>
             <PaginationItem>
-              <PaginationLink href="#">1</PaginationLink>
+              <PaginationLink href="#" isActive className="custom-pale-txt">1</PaginationLink>
             </PaginationItem>
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
             <PaginationItem>
-              <PaginationNext href="#" />
+              <PaginationNext href="#" className="custom-pale-txt" />
             </PaginationItem>
           </PaginationContent>
         </Pagination>

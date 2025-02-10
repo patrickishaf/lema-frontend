@@ -1,7 +1,6 @@
 import "../styles/UsersPostsPage.css";
 import { useState } from "react";
 import UserPostCard from "./UserPostCard";
-import { getPosts } from "@/data/posts";
 import useVector from "@/hooks/useVector";
 import uuid from "react-uuid";
 import NewPostBtn from "./NewPostBtn";
@@ -26,12 +25,11 @@ export default function UsersPostsPage() {
     queryKey: ["userposts", userId],
     enabled: !!userId,
   })
-  const {mutateAsync: deleteTodo} = useMutation({
+  const {mutateAsync: deletePost} = useMutation({
     mutationFn: postsService.deletePostById,
     onSuccess: queryClient.invalidateQueries(['user', userId])
   })
   const {prevBtn} = useVector();
-  const [posts, setPosts] = useState(getPosts());
 
   return (
     <div className="users-posts-page pt-44 pb-44">
@@ -66,7 +64,7 @@ export default function UsersPostsPage() {
           {
             !isPostsError && !isPostsLoading && (
               <main className="cards-box w-full grid grid-cols-3 gap-6">
-                <NewPostBtn />
+                <NewPostBtn userId={userId} />
                 {
                   postsData?.map((post) => (
                     <UserPostCard
@@ -74,7 +72,7 @@ export default function UsersPostsPage() {
                       post={post}
                       onDelete={async () => {
                         try {
-                          await deleteTodo(post.id);
+                          await deletePost(post.id);
                         } catch (err) {
                           console.error("failed to delete post");
                           console.error(err);

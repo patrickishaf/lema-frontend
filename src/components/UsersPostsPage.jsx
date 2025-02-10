@@ -63,7 +63,7 @@ export default function UsersPostsPage() {
           }
           {
             !isPostsError && !isPostsLoading && (
-              <main className="cards-box w-full grid grid-cols-3 gap-6">
+              <main className="cards-box w-full grid lg:grid-cols-3 md:grid-cols-2 gap-6">
                 <NewPostBtn userId={userId} />
                 {
                   postsData?.map((post) => (

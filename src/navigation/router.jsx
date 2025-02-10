@@ -14,7 +14,7 @@ export default function AppRouter() {
       element: <UsersPage />
     },
     {
-      path: routeNames.posts,
+      path: `${routeNames.posts}/:id`,
       element: <UsersPostsPage />
     }
   ]);

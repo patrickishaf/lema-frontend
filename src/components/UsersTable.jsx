@@ -55,7 +55,7 @@ export default function UsersTable() {
               :
               data?.data.map(({ id, name, email, address }) => (
                 <div key={uuid()} className="detail-row flex items-center border-b cursor-pointer" onClick={() => {
-                  openRoute(routeNames.posts);
+                  openRoute(`${routeNames.posts}/${id}`);
                 }}>
                   <p className="detail-cell user-name one font-medium text-sm">{name}</p>
                   <p className="detail-cell user-email two text-sm">{email}</p>

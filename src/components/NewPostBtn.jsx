@@ -48,7 +48,7 @@ export default function NewPostBtn({ userId }) {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen} className="h-full">
       <DialogTrigger asChild>
         <button className="new-post-btn border rounded-lg p-6 border-dashed flex flex-col items-center justify-center w-full h-full" onClick={() => setIsOpen(true)}>
           <img src={addIc} alt="add new post" className="w-5 h-5" />

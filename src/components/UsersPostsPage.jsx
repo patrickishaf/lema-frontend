@@ -4,6 +4,7 @@ import UserPostCard from "./UserPostCard";
 import { getPosts } from "@/data/posts";
 import useVector from "@/hooks/useVector";
 import uuid from "react-uuid";
+import NewPostBtn from "./NewPostBtn";
 
 export default function UsersPostsPage() {
   const {prevBtn} = useVector();
@@ -18,6 +19,7 @@ export default function UsersPostsPage() {
       <h1 className="page-title text-6xl font-medium my-4">James Sunderland</h1>
       <p className="email text-sm custom-pale-txt mb-6">james.sunderland@acme.corp <span className="font-medium">• 4 posts</span> </p>
       <main className="cards-box w-full grid grid-cols-3 gap-6">
+        <NewPostBtn />
         {
           posts.map((post) => <UserPostCard key={uuid()} post={post} />)
         }

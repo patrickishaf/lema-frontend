@@ -17,6 +17,7 @@ const httpClient = {
 
   async delete(path: string) {
     const res = await this.client.delete(path);
+    console.log({ res });
     return res.data;
   }
 }

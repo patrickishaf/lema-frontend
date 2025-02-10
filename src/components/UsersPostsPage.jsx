@@ -6,14 +6,16 @@ import useVector from "@/hooks/useVector";
 import uuid from "react-uuid";
 import NewPostBtn from "./NewPostBtn";
 import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import userService from "@/services/user.service";
 import Loader from "./Loader";
 import postsService from "@/services/posts.service";
 
 export default function UsersPostsPage() {
   const navigateTo = useNavigate();
-  const { id: userId } = useParams()
+  const { id: userId } = useParams();
+  const queryClient = useQueryClient();
+
   const {data: userData, isLoading: isUserLoading, isError: isUserError, error: userError, refetch: userRefetch } = useQuery({
     queryFn: () => userService.getUserById(userId),
     queryKey: ["user", userId],
@@ -23,6 +25,10 @@ export default function UsersPostsPage() {
     queryFn: () => postsService.getPostsByUserId(userId),
     queryKey: ["userposts", userId],
     enabled: !!userId,
+  })
+  const {mutateAsync: deleteTodo} = useMutation({
+    mutationFn: postsService.deletePostById,
+    onSuccess: queryClient.invalidateQueries(['user', userId])
   })
   const {prevBtn} = useVector();
   const [posts, setPosts] = useState(getPosts());
@@ -62,7 +68,20 @@ export default function UsersPostsPage() {
               <main className="cards-box w-full grid grid-cols-3 gap-6">
                 <NewPostBtn />
                 {
-                  postsData?.map((post) => <UserPostCard key={uuid()} post={post} />)
+                  postsData?.map((post) => (
+                    <UserPostCard
+                      key={uuid()}
+                      post={post}
+                      onDelete={async () => {
+                        try {
+                          await deleteTodo(post.id);
+                        } catch (err) {
+                          console.error("failed to delete post");
+                          console.error(err);
+                        }
+                      }}
+                    />
+                  ))
                 }
               </main>
             )

@@ -13,6 +13,11 @@ const httpClient = {
   async post(path: string, data: object) {
     const res = await this.client.post(path, data);
     return res.data;
+  },
+
+  async delete(path: string) {
+    const res = await this.client.delete(path);
+    return res.data;
   }
 }
 

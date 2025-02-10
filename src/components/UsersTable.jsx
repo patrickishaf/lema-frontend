@@ -13,8 +13,16 @@ import {
 } from "@/components/ui/pagination"
 import { useNavigate } from "react-router-dom";
 import routeNames from "@/navigation/routenames";
+import { useQuery } from "@tanstack/react-query";
+import userService from "@/services/user.service";
+import Loader from "./Loader";
+import uuid from "react-uuid";
 
 export default function UsersTable() {
+  const { data, isLoading, error } = useQuery({
+    queryFn: () => userService.getUsers(),
+    queryKey: ["users"]
+  });
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const openRoute = useNavigate();
@@ -37,15 +45,23 @@ export default function UsersTable() {
           <div className="header-cell three text-xs">Address</div>
         </div>
         {
-          users.map(({ fullName, emailAddress, address }) => (
-            <div className="detail-row flex items-center border-b" onClick={() => {
-              openRoute(routeNames.posts);
-            }}>
-              <p className="detail-cell user-name one font-medium text-sm">{fullName}</p>
-              <p className="detail-cell user-email two text-sm">{emailAddress}</p>
-              <p className="detail-cell user-address three text-sm">{address}</p>
-            </div>
-          ))
+          isLoading
+            ?
+              <Loader />
+            : 
+              error
+              ?
+                <div>{error.message}</div>
+              :
+              data?.data.map(({ id, name, email, address }) => (
+                <div key={uuid()} className="detail-row flex items-center border-b cursor-pointer" onClick={() => {
+                  openRoute(routeNames.posts);
+                }}>
+                  <p className="detail-cell user-name one font-medium text-sm">{name}</p>
+                  <p className="detail-cell user-email two text-sm">{email}</p>
+                  <p className="detail-cell user-address three text-sm">{address}</p>
+                </div>
+              ))
         }
       </main>
       <div className="pagination-container">
